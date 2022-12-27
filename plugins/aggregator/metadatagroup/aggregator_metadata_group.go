@@ -180,11 +180,16 @@ func (g *AggregatorMetadataGroup) buildGroupKey(event *models.PipelineGroupEvent
 	return metadataValues.String(), models.NewMetadataWithMap(metadataKeyValues)
 }
 
+func NewAggregatorMetadataGroup() *AggregatorMetadataGroup {
+	return &AggregatorMetadataGroup{
+		GroupMetadataKeys:   make([]string, 0),
+		GroupMaxByteLength:  MaxBytesLength,
+		GroupMaxEventLength: MaxEventsLength,
+	}
+}
+
 func init() {
 	ilogtail.Aggregators["aggregator_metadata_group"] = func() ilogtail.Aggregator {
-		return &AggregatorMetadataGroup{
-			GroupMaxByteLength:  MaxBytesLength,
-			GroupMaxEventLength: MaxEventsLength,
-		}
+		return NewAggregatorMetadataGroup()
 	}
 }
