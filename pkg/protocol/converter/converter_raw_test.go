@@ -2,9 +2,11 @@ package protocol
 
 import (
 	"fmt"
-	"github.com/alibaba/ilogtail/pkg/models"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	"github.com/alibaba/ilogtail/pkg/models"
 )
 
 func TestConverter_ConvertToRawStream(t *testing.T) {
@@ -46,9 +48,7 @@ func TestConverter_ConvertToRawStream(t *testing.T) {
 			},
 			wantStream: [][]byte{mockByteEvent},
 			wantValues: []map[string]string{{"metadata.db": "test"}},
-			wantErr: func(t assert.TestingT, err error, i ...interface{}) bool {
-				return assert.NoError(t, err, i...)
-			},
+			wantErr:    assert.NoError,
 		}, {
 			name:   "multiple events",
 			fields: mockValidFields,
@@ -59,9 +59,7 @@ func TestConverter_ConvertToRawStream(t *testing.T) {
 			},
 			wantStream: [][]byte{append(append(mockByteEvent, '\n'), mockByteEvent...)},
 			wantValues: []map[string]string{{"metadata.db": "test"}},
-			wantErr: func(t assert.TestingT, err error, i ...interface{}) bool {
-				return assert.NoError(t, err, i...)
-			},
+			wantErr:    assert.NoError,
 		}, {
 			name:   "unsupported metric event type",
 			fields: mockInvalidFields,
@@ -77,9 +75,7 @@ func TestConverter_ConvertToRawStream(t *testing.T) {
 			},
 			wantStream: nil,
 			wantValues: nil,
-			wantErr: func(t assert.TestingT, err error, i ...interface{}) bool {
-				return assert.Error(t, err, i...)
-			},
+			wantErr:    assert.Error,
 		},
 	}
 	for _, tt := range tests {

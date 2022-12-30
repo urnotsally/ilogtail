@@ -16,8 +16,9 @@ package protocol
 
 import (
 	"fmt"
-	"github.com/alibaba/ilogtail/pkg/models"
 	"strings"
+
+	"github.com/alibaba/ilogtail/pkg/models"
 )
 
 func (c *Converter) ConvertToRawStream(groupEvents *models.PipelineGroupEvents, targetFields []string) (stream [][]byte, values []map[string]string, err error) {

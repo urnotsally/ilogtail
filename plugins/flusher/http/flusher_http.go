@@ -175,11 +175,11 @@ func (f *FlusherHTTP) convertAndFlush(data interface{}) error {
 	var logs interface{}
 	var varValues []map[string]string
 	var err error
-	switch data.(type) {
+	switch v := data.(type) {
 	case *protocol.LogGroup:
-		logs, varValues, err = f.converter.ToByteStreamWithSelectedFields(data.(*protocol.LogGroup), f.queryVarKeys)
+		logs, varValues, err = f.converter.ToByteStreamWithSelectedFields(v, f.queryVarKeys)
 	case *models.PipelineGroupEvents:
-		logs, varValues, err = f.converter.ToByteStreamWithSelectedFieldsV2(data.(*models.PipelineGroupEvents), f.queryVarKeys)
+		logs, varValues, err = f.converter.ToByteStreamWithSelectedFieldsV2(v, f.queryVarKeys)
 	default:
 		return fmt.Errorf("unsupport data type")
 	}
